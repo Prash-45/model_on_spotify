@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Popularity Predictor</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .container { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+        h1 { text-align: center; color: #333; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input[type="number"] { width: calc(100% - 20px); padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background-color: #5cb85c; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
+        button:hover { background-color: #4cae4c; }
+        #predictionResult { margin-top: 20px; padding: 15px; background-color: #e9ecef; border-radius: 4px; font-weight: bold; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Predict Song Popularity</h1>
+        <form id="predictionForm">
+            <label for="trackDuration">Track Duration (ms):</label>
+            <input type="number" id="trackDuration" name="track_duration_ms" required value="210000"><br>
+
+            <label for="albumTotalTracks">Album Total Tracks:</label>
+            <input type="number" id="albumTotalTracks" name="album_total_tracks" required value="12"><br>
+
+            <label for="artistPopularity">Artist Popularity (0-100):</label>
+            <input type="number" id="artistPopularity" name="artist_popularity" min="0" max="100" required value="75"><br>
+
+            <label for="artistFollowers">Artist Followers:</label>
+            <input type="number" id="artistFollowers" name="artist_followers" required value="1000000"><br>
+
+            <button type="submit">Predict Popularity</button>
+        </form>
+        <div id="predictionResult"></div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const trackDuration = document.getElementById('trackDuration').value;
+            const albumTotalTracks = document.getElementById('albumTotalTracks').value;
+            const artistPopularity = document.getElementById('artistPopularity').value;
+            const artistFollowers = document.getElementById('artistFollowers').value;
+
+            // In a real application, you would send this data to a backend server
+            // that hosts your trained Python model. For example:
+            /*
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    track_duration_ms: parseFloat(trackDuration),
+                    album_total_tracks: parseInt(albumTotalTracks),
+                    artist_popularity: parseFloat(artistPopularity),
+                    artist_followers: parseInt(artistFollowers)
+                }),
+            });
+            const data = await response.json();
+            document.getElementById('predictionResult').innerText = `Predicted Popularity: ${data.prediction.toFixed(2)}`;
+            */
+
+            // For demonstration purposes in a static HTML, we'll just show the input:
+            document.getElementById('predictionResult').innerText = `
+                Prediction simulated! 
+                Input: Track Duration: ${trackDuration}, Album Tracks: ${albumTotalTracks},
+                Artist Pop: ${artistPopularity}, Artist Followers: ${artistFollowers}
+                (Connect to a backend for actual prediction)
+            `;
+        });
+    </script>
+</body>
+</html>
